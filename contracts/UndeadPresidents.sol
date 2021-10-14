@@ -15,11 +15,11 @@ contract UndeadPresidents is ERC721Enumerable, Ownable {
 
     Counters.Counter private _tokenIdTracker;
 
-    uint256 public constant MAX_ELEMENTS = 9666;
+    uint256 public constant MAX_ELEMENTS = 2850; // Total purchasable tokens
     uint256 public constant PRICE = 80 * 10**15; // .08 eth
-    uint256 public constant MAX_BY_MINT = 5;
-    uint256 public constant MAX_BY_MINT_WHITELIST = 3;
-    uint256 public constant MAX_RESERVE_COUNT = 100;
+    uint256 public constant MAX_BY_MINT = 10; // Maximum purchasable tokens per transaction after presale
+    uint256 public constant MAX_BY_MINT_WHITELIST = 10; // Maximum purchasable tokens per account during presale
+    uint256 public constant MAX_RESERVE_COUNT = 150; // Total reserved tokens
     
     uint256 public constant LAUNCH_TIMESTAMP = 1635120000; // Monday October 25 2021 00:00:00 GMT+0000
 
@@ -29,7 +29,6 @@ contract UndeadPresidents is ERC721Enumerable, Ownable {
     mapping(address => bool) private _whiteList;
     mapping(address => uint256) private _whiteListClaimed;
     uint256 private _reservedCount = 0;
-    uint256 private _reserveAtATime = 10;
 
     address public constant t1 = 0xDf336017F01182a736bb0999b14f75Dfd2cB6984; // 40%
     address public constant t2 = 0x55823E6C16efd081cf52400a73c0444eAD97d3be; // 40%
@@ -59,13 +58,13 @@ contract UndeadPresidents is ERC721Enumerable, Ownable {
         return _totalSupply();
     }
 
-    function reserveTokens(address _to) public onlyOwner {
+    function reserveTokens(address _to, uint256 _count) public onlyOwner {
         require(
-            _reservedCount + _reserveAtATime <= MAX_RESERVE_COUNT,
+            _reservedCount + _count <= MAX_RESERVE_COUNT,
             "Max reserve exceeded"
         );
         uint256 i;
-        for (i = 0; i < _reserveAtATime; i++) {
+        for (i = 0; i < _count; i++) {
             _reservedCount++;
             _mintAnElement(_to);
         }
@@ -85,11 +84,11 @@ contract UndeadPresidents is ERC721Enumerable, Ownable {
 
     function presaleMint(uint256 _count) public payable {
         require(isPresaleOpen, "Presale is not open");
-        require(_whiteList[msg.sender], "You are not in whitelist");
+        require(_whiteList[msg.sender], "You are not in the presale whitelist");
         require(_count <= MAX_BY_MINT_WHITELIST, "Incorrect amount to claim");
         require(
             _whiteListClaimed[msg.sender] + _count <= MAX_BY_MINT_WHITELIST,
-            "Purchase exceeds max allowed"
+            "Purchase exceeds max allowed during presale"
         );
         uint256 total = _totalSupply();
         require(total + _count <= MAX_ELEMENTS, "Max limit");
@@ -168,10 +167,6 @@ contract UndeadPresidents is ERC721Enumerable, Ownable {
 
             _whiteList[addresses[i]] = false;
         }
-    }
-
-    function setReserveAtATime(uint256 _count) public onlyOwner {
-        _reserveAtATime = _count;
     }
 
     function withdrawAll() external onlyOwner {
