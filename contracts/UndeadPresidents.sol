@@ -21,7 +21,7 @@ contract UndeadPresidents is ERC721Enumerable, Ownable {
     uint256 public constant MAX_BY_MINT_WHITELIST = 10; // Maximum purchasable tokens per account during presale
     uint256 public constant MAX_RESERVE_COUNT = 150; // Total reserved tokens
     
-    uint256 public constant LAUNCH_TIMESTAMP = 1635120000; // Monday October 25 2021 00:00:00 GMT+0000
+    uint256 public constant LAUNCH_TIMESTAMP = 1635379200; // Monday October 28 2021 00:00:00 GMT+0000
 
     bool public isSaleOpen = false;
     bool public isPresaleOpen = false;
@@ -30,10 +30,11 @@ contract UndeadPresidents is ERC721Enumerable, Ownable {
     mapping(address => uint256) private _whiteListClaimed;
     uint256 private _reservedCount = 0;
 
-    address public constant t1 = 0xDf336017F01182a736bb0999b14f75Dfd2cB6984; // 40%
-    address public constant t2 = 0x55823E6C16efd081cf52400a73c0444eAD97d3be; // 40%
-    address public constant t3 = 0x6B3E893B28bEe6E9B9C93a0108Ad2030b9Cd4AB2; // 10%
-    address public constant t4 = 0x0a15f8D9b8aCb352eE11a1D76e967Ab44842e9f3; // 10%
+    
+    address public constant t1 = ; // 40%
+    address public constant t2 = ; // 40%
+    address public constant t3 = 0x2fc75c3bA5B199323C3f919c594D2C061cc689DD; // 10%
+    address public constant t4 = ; // 10%
 
     string public baseTokenURI;
 
