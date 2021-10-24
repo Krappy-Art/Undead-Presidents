@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity 0.8.9;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
@@ -30,11 +30,10 @@ contract UndeadPresidents is ERC721Enumerable, Ownable {
     mapping(address => uint256) private _whiteListClaimed;
     uint256 private _reservedCount = 0;
 
-    
-    address public constant t1 = ; // 40%
-    address public constant t2 = ; // 40%
+    address public constant t1 = 0x71959E2C8337493368c000ef0F1c98c8bB79A7af; // 40%
+    address public constant t2 = 0xAe285D3FA6aCE812E3A54f7713E6008F157DfC66; // 40%
     address public constant t3 = 0x2fc75c3bA5B199323C3f919c594D2C061cc689DD; // 10%
-    address public constant t4 = ; // 10%
+    address public constant t4 = 0xb4ce79c7592f53505d551cB57439Fc16a9e0eF5C; // 10%
 
     string public baseTokenURI;
 

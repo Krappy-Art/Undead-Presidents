@@ -1,3 +1,7 @@
 /node_modules
-.secret
+.secrets.json
 /build
+commands
+.env
+/artifacts
+/cache
